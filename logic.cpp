@@ -2,7 +2,8 @@
 #include <string>
 using namespace std;
 
-const int MAX_EQUATION_SIZE = 999;
+//openP and closeP indicate parethesis
+const string operations[] = {"add", "sub", "multiply", "divide","openP","closeP","powerTo"};
 
 
 struct equationData {
@@ -12,30 +13,60 @@ struct equationData {
     int value;
     int powerOfTen;
 
-    //
+    // will be filled with values from operations array.
     string operation;
 };
 
 int main(){
+    bool complete = false;
 
+    do{
+
+    }while(!complete);
 }
 
 class equation {
     public:
+        //public so that the renderer will be able to see.
+        equationData equationArray[1];
+
         // if there is exisitng data, use that. If not make an empty equation
         equation(equationData things[]){
             
         }
 
-        //function overloading :D
-        equation(){
 
+        void addData(int insertIndex, equationData data){
+            equationData tempArray[sizeof(equationArray) + 1];
+
+            int equationCounter = 0;
+            for(int i = 0; i < sizeof(tempArray); i++){
+                if(i == insertIndex){
+                    tempArray[i] = data;
+                }
+                else{
+                    tempArray[i] = equationArray[equationCounter];
+                    equationCounter++;
+                }
+            }
         }
+
+        void delData(int delIndex){
+            equationData tempArray[sizeof(equationArray) - 1];
+
+            int equationCounter = 0;
+            for(int i = 0; i < sizeof(tempArray); i++){
+                if(i != delIndex){
+                    tempArray[i] = equationArray[equationCounter];
+                    equationCounter++;
+                }
+            }
+        }
+
         //return data in base ten notation.
         equationData solve(){
 
         }
     private:
         //Because the compiler needs to allocate memory on the stack, I can't let this equation be of variable length like in python.
-        equationData equationArray[MAX_EQUATION_SIZE];
 };
