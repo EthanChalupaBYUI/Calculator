@@ -1,12 +1,15 @@
 #include <iostream>
 #include <string>
+#include <bits/stdc++.h>
+#include <ctype.h>
+#include <array>
 using namespace std;
 
-//openP and closeP indicate parethesis
-const string operations[] = {"add", "sub", "multiply", "divide","openP","closeP","powerTo"};
+// openP and closeP indicate parethesis
+const string operations[] = {"add", "sub", "multiply", "divide", "openP", "closeP", "powerTo"};
 
-
-struct equationData {
+struct equationData
+{
     // Only one of these should be used at once.
 
     // Floats would have inaccuracy which normally might be fine, but as this is a calculator I want to try a different method of addition.
@@ -17,56 +20,96 @@ struct equationData {
     string operation;
 };
 
-int main(){
-    bool complete = false;
+class Equation
+{
+public:
+    // public so that the renderer will be able to see.
+    equationData equationArray[1];
 
-    do{
+    void stringInput(string input)
+    {
+        char inputStringArray[input.length() + 1];
+        strcpy(inputStringArray, input.c_str());
 
-    }while(!complete);
-}
+        string  *numberCache = new string[0];
 
-class equation {
-    public:
-        //public so that the renderer will be able to see.
-        equationData equationArray[1];
+        for (char letter : inputStringArray)
+        {
+            if(isdigit(letter)){
+                array<char, sizeof(numberCache) + 1> tempCache;
+                tempCache[sizeof(numberCache)] = letter;
+                delete[] numberCache;
 
-        // if there is exisitng data, use that. If not make an empty equation
-        equation(equationData things[]){
-            
-        }
-
-
-        void addData(int insertIndex, equationData data){
-            equationData tempArray[sizeof(equationArray) + 1];
-
-            int equationCounter = 0;
-            for(int i = 0; i < sizeof(tempArray); i++){
-                if(i == insertIndex){
-                    tempArray[i] = data;
+                int powerOfTen = 0;
+                double output;
+                for(int i = sizeof(tempCache); i != 0; i--){
+                                                                                                  
                 }
-                else{
-                    tempArray[i] = equationArray[equationCounter];
-                    equationCounter++;
-                }
+            }else{
+                //flush number cache
+                //push number to data
             }
         }
+    }
 
-        void delData(int delIndex){
-            equationData tempArray[sizeof(equationArray) - 1];
+    // return data in base ten notation.
+    equationData solve()
+    {
+    }
 
-            int equationCounter = 0;
-            for(int i = 0; i < sizeof(tempArray); i++){
-                if(i != delIndex){
-                    tempArray[i] = equationArray[equationCounter];
-                    equationCounter++;
-                }
+private:
+    
+
+    void addData(int insertIndex, equationData data)
+    {
+        equationData tempArray[sizeof(equationArray) + 1];
+
+        int equationCounter = 0;
+        for (int i = 0; i < sizeof(tempArray); i++)
+        {
+            if (i == insertIndex)
+            {
+                tempArray[i] = data;
+            }
+            else
+            {
+                tempArray[i] = equationArray[equationCounter];
+                equationCounter++;
             }
         }
+    }
 
-        //return data in base ten notation.
-        equationData solve(){
+    void delData(int delIndex)
+    {
+        equationData tempArray[sizeof(equationArray) - 1];
 
+        int equationCounter = 0;
+        for (int i = 0; i < sizeof(tempArray); i++)
+        {
+            if (i != delIndex)
+            {
+                tempArray[i] = equationArray[equationCounter];
+                equationCounter++;
+            }
         }
-    private:
-        //Because the compiler needs to allocate memory on the stack, I can't let this equation be of variable length like in python.
+    }
 };
+
+int main()
+{
+    bool complete = false;
+    string rawInput;
+    Equation unsolvedData;
+
+    cout << "Calculator App" << endl;
+
+    do
+    {
+        cout << "What is your equation?: ";
+        cin >> rawInput;
+
+        unsolvedData.stringInput(rawInput);
+    } while (!complete);
+
+    return 0;
+}
