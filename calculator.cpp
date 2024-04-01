@@ -79,7 +79,7 @@ int main()
     {
         string input;
         cout << "Calculator App" << endl;
-        cout << "Enter an addition or subtracion equation: ";
+        cout << "Enter an addition or subtraction equation: ";
         getline(cin, input);
 
         if (input == "q")
